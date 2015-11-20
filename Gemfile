@@ -47,5 +47,7 @@ gem 'rails_12factor', group: :production
 
 gem 'puma'
 
+gem 'rubocop'
+
 ruby "2.2.0"
 
