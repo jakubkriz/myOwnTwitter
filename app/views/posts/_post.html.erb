@@ -3,7 +3,7 @@
     <strong><%= h(post.author) %></strong><br />
     <sup class="text-muted">From <%= time_ago_in_words(post.created_at)%></sup><br />
     <div class="mb pb">
-      <%= h(post.title) %>
+      <big><i><%= h(post.title) %></i></big>
     </div>
     <div class="mb pb">
       <%= h(post.body) %>
