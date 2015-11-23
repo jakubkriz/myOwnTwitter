@@ -1,13 +1,8 @@
 class Tag < ActiveRecord::Base
-  has_many :posts
+  has_many :taggings
+  has_many :posts, through: :taggings
 
-  def self.from_param(param)
-    find_by_name!(param)
-  end
-  def to_param  # overridden
-    name
+  def self.counts
+    self.select("name, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id, tags.name")
   end
 end
-
-# user = User.find_by_name('Phusion')
-# user_path(user)  # => "/users/Phusion"

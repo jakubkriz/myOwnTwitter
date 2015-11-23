@@ -1,9 +1,21 @@
 Rails.application.routes.draw do
-  resources :tags
+  root 'posts#index'
+  
+  get 'tags/:tag', to: 'posts#index', as: "tag"
 
-  resources :posts
+  # resources :tags
 
-  root 'welcome#index'
+  # resources :posts, :only => [:index, :new, :edit] do
+  #   collection do
+  #     get 'filter/:tag_params'
+  #   end
+  # end
+  resources :posts, only: [:create]
+
+  # resources :tags do |tags|
+  #   tags.resources :posts
+  # end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
