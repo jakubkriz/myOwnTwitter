@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+  resources :posts, except: [:show] do
+    collection do
+      get 'filter/:tag_name', to: 'posts#filter', as: 'filter'
+    end
+  end
+
+  # get 'tags/:tag', to: 'posts#index', as: "tag"
+
   root 'posts#index'
-
-  get 'tags/:tag', to: 'posts#index', as: "tag"
-
   # resources :tags
 
   # resources :posts, :only => [:index, :new, :edit] do
@@ -10,7 +15,6 @@ Rails.application.routes.draw do
   #     get 'filter/:tag_params'
   #   end
   # end
-  resources :posts, only: [:create, :edit, :delete]
 
   # resources :tags do |tags|
   #   tags.resources :posts

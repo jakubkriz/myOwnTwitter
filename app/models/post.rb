@@ -1,22 +1,20 @@
 class Post < ActiveRecord::Base
-  validates_presence_of  :author #, :presence => true
-  validates_presence_of  :title  #, :presence => true
-  validates_presence_of  :body   #, :presence => true
+  validates :author, presence: true
+  validates :title, presence: true
+  validates :body, presence: true
 
-  has_many :taggings
-  has_many :tags, through: :taggings
+  has_and_belongs_to_many :tags
+  validates :tags, presence: true
 
-  validates_presence_of :tags
+  #ve _form -> <%= f.unput :tags_string %> -> <input name="post[tags_string]" id="post_tags_string" value="to co vrati metoda tags_string"
+  def tags_string
+    self.tags.map(&:name).join(",")
+  end
 
-
-  def all_tags=(names)
+  def tags_string=(names)
     self.tags = names.split(/\s?,\s?|\s/).map do |name| # (/\s?,\s?|\s/)
         Tag.where(name: name.strip).first_or_create!
     end
-  end
-
-  def all_tags
-    self.tags.map(&:name).join(",")
   end
 
   def self.tagged_with(name)
