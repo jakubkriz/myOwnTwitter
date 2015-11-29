@@ -18,9 +18,10 @@ class PostsController < ApplicationController
   end
 
   def filter
-    @posts = Post.tagged_with(params[:tag], :on => 'tags')
+    @posts = Post.tagged_with(params[:tag_name])
     @tags = sort(Tag.all)
-    render root_path
+
+    render :index
   end
 
   # POST /posts
@@ -30,7 +31,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to :index, notice: 'Post was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Post was successfully created.' }
         format.json { render :index, status: :created }
       else
         format.html { render :new }
@@ -44,7 +45,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to :index, notice: 'Post was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Post was successfully updated.' }
         format.json { render :index, status: :ok }
       else
         format.html { render :edit }
@@ -57,6 +58,10 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post.destroy
+    @tags = Tag.all
+    @tags.each do |tag|
+      tag.destroy if tag.posts.empty?
+    end
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }

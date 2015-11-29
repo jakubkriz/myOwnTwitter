@@ -14,38 +14,39 @@
   </div>
 </div>
 
+
 <%= link_to t('.new', :default => t("New Post")),
             new_post_path,
             :class => 'btn btn-primary' %>
 
 <table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:author) %></th>
-      <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:body) %></th>
-      <th><%= model_class.human_attribute_name(:tags_string) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
   <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.author %></td>
-        <td><%= post.title %></td>
-        <td><%= post.body %></td>
-        <td><%= post.tags_string %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_post_path(post), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      post_path(post),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
+    <% @posts.reverse.each do |post| %>
+    <tr id="post-row-#{post.id}">
+      <td width="150">
+        <%= post.author %>
+        <br>
+        <%= post.tags_string %>
+      </td>
+      <td>
+        <%= post.title %>
+        <hr class="style-three">
+        <%= post.body %>
+      </td>
+      <td width="100">
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+        edit_post_path(post), :class => 'btn btn-default btn-xs' %>
+        <hr class="style-three">
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+        post_path(post), :method => :delete,
+        :data => { :confirm => t('.confirm',
+          :default => t("helpers.links.confirm",
+            :default => 'Are you sure?')) },
+            :class => 'btn btn-xs btn-danger' %>
+      </td>
+    </tr>
   </tbody>
+  <% end %>
 </table>
+
 
