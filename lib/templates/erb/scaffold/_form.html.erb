@@ -44,3 +44,6 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+    <%= @post.errors.full_messages_for :body %>
+    <%= @post.errors.full_message(:body, 'can\'t be blank') %>

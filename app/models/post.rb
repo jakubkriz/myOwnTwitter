@@ -4,7 +4,12 @@ class Post < ActiveRecord::Base
   validates :body, presence: true
 
   has_and_belongs_to_many :tags
-  validates :tags, presence: true
+
+  validate :has_tags?
+
+  def has_tags?
+    errors.add( :tags_string, "must have at least one tag") if self.tags.blank?
+  end
 
   #ve _form -> <%= f.unput :tags_string %> -> <input name="post[tags_string]" id="post_tags_string" value="to co vrati metoda tags_string"
   def tags_string
