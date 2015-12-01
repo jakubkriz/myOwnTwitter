@@ -7,7 +7,7 @@ class Tag < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   def to_param  # overridden
-    :name
+    self.name
   end
 
   # def self.from_param(name)

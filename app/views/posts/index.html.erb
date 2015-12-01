@@ -9,7 +9,7 @@
 <div class="row">
   <div class="col-xs-12 text-center">
     <% @tags.each do |tag| %>
-      <%= link_to tag.name, filter_posts_path(tag.name), class: 'filter-by-tag' %>
+      <%= link_to tag.name, filter_posts_path(tag), class: 'filter-by-tag' %>
     <% end %>
   </div>
 </div>
