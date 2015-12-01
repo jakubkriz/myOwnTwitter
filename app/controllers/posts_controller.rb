@@ -4,8 +4,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @tags = sort(Tag.all)
-    @posts = Post.all
+    @tags = sort_tags(Tag.all).reverse
+    @posts = sort_posts(Post.all).reverse
   end
 
   # GET /posts/new
@@ -18,8 +18,8 @@ class PostsController < ApplicationController
   end
 
   def filter
-    @posts = Post.tagged_with(params[:tag_name])
-    @tags = sort(Tag.all)
+    @posts = sort_posts(Post.tagged_with(params[:tag_name])).reverse
+    @tags = sort_tags(Tag.all).reverse
 
     render :index
   end
@@ -79,9 +79,15 @@ class PostsController < ApplicationController
       params.require(:post).permit(:author, :title, :body, :tags_string)
     end
 
-    def sort(tags)
+    def sort_tags(tags)
       tags.sort_by do |tag|
         tag.posts.count
+      end
+    end
+
+    def sort_posts(posts)
+      posts.sort_by do |post|
+        post.updated_at
       end
     end
 end

@@ -22,7 +22,7 @@
 
 <table class="table table-striped">
   <tbody>
-    <% @posts.reverse.each do |post| %>
+    <% @posts.each do |post| %>
     <tr id="post-row-#{post.id}">
       <td width="150">
         <%= post.author %>
