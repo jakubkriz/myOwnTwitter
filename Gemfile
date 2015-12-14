@@ -57,5 +57,7 @@ gem 'twitter-bootstrap-rails', :git => 'https://github.com/seyhunak/twitter-boot
 
 gem 'pry'
 
+gem 'slim-rails'
+
 ruby '2.2.0'
 

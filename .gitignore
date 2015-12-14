@@ -12,3 +12,8 @@
 !/log/.keep
 /tmp
 .env
+
+# Ignore file which is used to deliver the project
+ukol.tar.gz
+odkaz_na_heroku
+
