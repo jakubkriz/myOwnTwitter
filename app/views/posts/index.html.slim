@@ -17,14 +17,18 @@ table.table.table-striped
     - @posts.each do |post|
       tr id="post-row-#{post.id}"
         td[width="150"]
-          = post.author
+          div.post-author
+            strong = post.author
           hr
-          = post.tags_string
+          div.post-tags
+            = post.tags_string
         td
-          = post.title
+          div.post-title
+            = post.title
           hr.style-three
-          = post.body
+          div.post-body
+            = post.body
         td[width="100"]
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_post_path(post), :class => 'btn btn-default'
           hr.style-three
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), post_path(post), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), post_path(post), :method => :delete, :class => 'btn btn-danger'
