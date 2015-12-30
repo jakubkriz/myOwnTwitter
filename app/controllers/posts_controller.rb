@@ -59,7 +59,9 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     @tags = Tag.all
-    @tags.each { |tag| tag.destroy if tag.posts.empty? }
+    @tags.each do |tag|
+      tag.destroy if tag.posts.empty?
+    end
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was deleted.' }
       format.json { head :no_content }
